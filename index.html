@@ -11,114 +11,262 @@
 
     body {
       margin: 0;
-      background: #f4f1ea;
+      background: #f7f3ea;
       color: #111;
       font-family: Helvetica, Arial, sans-serif;
+      overflow: hidden;
     }
 
     #grid {
       display: grid;
-      grid-template-columns: 42vw 1fr;
-      min-height: 100vh;
+      grid-template-columns: 42vw 58vw;
+      width: 100vw;
+      height: 100vh;
     }
 
     #left-column {
-      padding: 36px;
+      padding: 38px;
+      border-right: 2px solid #111;
       height: 100vh;
       overflow-y: scroll;
-      border-right: 1.5px solid #111;
-      background: #f4f1ea;
-    }
-
-    .scroll::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    .scroll::-webkit-scrollbar-thumb {
-      background: #111;
+      background: #f7f3ea;
+      position: relative;
+      z-index: 2;
     }
 
     h1 {
-      margin: 0 0 20px 0;
-      font-size: clamp(48px, 9vw, 120px);
-      line-height: 0.85;
-      letter-spacing: -0.08em;
+      margin: 0;
+      font-size: clamp(72px, 9vw, 150px);
+      line-height: 0.78;
+      letter-spacing: -0.09em;
       font-weight: 900;
       text-transform: uppercase;
     }
 
     .desc {
-      margin: 0 0 40px 0;
-      font-size: 22px;
-      line-height: 1.2;
-      font-style: italic;
-      border-top: 1.5px solid #111;
-      border-bottom: 1.5px solid #111;
+      margin: 32px 0 48px 0;
       padding: 14px 0;
+      border-top: 2px solid #111;
+      border-bottom: 2px solid #111;
+      font-size: 22px;
+      font-style: italic;
+      letter-spacing: -0.04em;
     }
 
     ul {
       list-style: none;
       padding: 0;
       margin: 0;
+      border-top: 2px solid #111;
     }
 
     li {
+      padding: 20px 0;
+      border-bottom: 2px solid #111;
       font-size: 28px;
       line-height: 1.05;
-      letter-spacing: -0.04em;
-      border-bottom: 1.5px solid #111;
-      padding: 18px 0;
+      letter-spacing: -0.055em;
+      transition: all 0.25s ease;
+    }
+
+    li:hover {
+      padding-left: 18px;
+      background: #111;
+      color: #f7f3ea;
     }
 
     li::before {
       content: "→ ";
-      font-weight: bold;
     }
 
     a {
-      color: #111;
+      color: inherit;
       text-decoration: none;
-      border-bottom: 2px solid #111;
-      transition: all 0.25s ease;
-    }
-
-    a:hover {
-      background: #111;
-      color: #f4f1ea;
-      padding: 0 6px;
+      border-bottom: 2px solid currentColor;
     }
 
     .ascii {
-      margin-top: 80px;
-      font-size: 24px;
-      line-height: 1.15;
-      text-align: left;
+      margin-top: 70px;
       font-family: "Courier New", monospace;
-      border: 1.5px solid #111;
-      padding: 24px;
-      background: #fffdf6;
-      transform: rotate(-1.5deg);
+      font-size: 20px;
+      line-height: 1.15;
+      white-space: pre;
+      letter-spacing: 0;
+      transform: rotate(-3deg);
+      width: fit-content;
+      padding: 22px 30px;
+      border: 2px solid #111;
+      background: #fffdf7;
+      box-shadow: 10px 10px 0 #111;
+    }
+
+    .label {
+      position: absolute;
+      left: 38px;
+      bottom: 32px;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    #right-column {
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      background: #f7f3ea;
+      cursor: crosshair;
+    }
+
+    #right-column::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, rgba(0,0,0,0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0,0,0,0.08) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+
+    .guide-text {
+      position: absolute;
+      top: 28px;
+      left: 30px;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      z-index: 3;
+    }
+
+    .instruction {
+      position: absolute;
+      right: 30px;
+      bottom: 28px;
+      width: 260px;
+      font-size: 16px;
+      line-height: 1.15;
+      letter-spacing: -0.04em;
+      border-top: 2px solid #111;
+      padding-top: 12px;
+      z-index: 3;
+    }
+
+    #name-field {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+    }
+
+    .letter {
+      position: absolute;
+      font-size: clamp(42px, 7vw, 120px);
+      font-weight: 900;
+      letter-spacing: -0.08em;
+      line-height: 0.8;
+      user-select: none;
+      transition:
+        transform 0.2s ease,
+        opacity 0.2s ease,
+        font-style 0.2s ease;
+      will-change: transform;
+      mix-blend-mode: multiply;
+    }
+
+    .letter:hover {
+      font-style: italic;
+      opacity: 0.45;
+    }
+
+    .floating-name {
+      position: absolute;
+      left: 30px;
+      bottom: 120px;
+      font-size: 10vw;
+      line-height: 0.8;
+      font-weight: 900;
+      letter-spacing: -0.1em;
+      text-transform: uppercase;
+      color: transparent;
+      -webkit-text-stroke: 2px #111;
+      opacity: 0.18;
+      pointer-events: none;
+      white-space: nowrap;
+      animation: slowMove 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes slowMove {
+      from {
+        transform: translateX(-40px) skewX(-8deg);
+      }
+      to {
+        transform: translateX(60px) skewX(8deg);
+      }
+    }
+
+    .click-note {
+      position: absolute;
+      right: 30px;
+      top: 28px;
+      width: 180px;
+      height: 180px;
+      border: 2px solid #111;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      animation: rotateNote 9s linear infinite;
+      z-index: 3;
+      background: rgba(247,243,234,0.75);
+    }
+
+    @keyframes rotateNote {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     @media (max-width: 768px) {
+      body {
+        overflow: auto;
+      }
+
       #grid {
         display: block;
+        height: auto;
       }
 
       #left-column {
-        width: 100%;
         height: auto;
         border-right: none;
-        padding: 24px;
+        border-bottom: 2px solid #111;
+      }
+
+      #right-column {
+        height: 80vh;
       }
 
       h1 {
-        font-size: 64px;
+        font-size: 78px;
       }
 
       li {
         font-size: 24px;
+      }
+
+      .label {
+        position: static;
+        margin-top: 40px;
+      }
+
+      .instruction {
+        width: 220px;
       }
     }
   </style>
@@ -127,26 +275,25 @@
 <body>
 
   <div id="grid">
-    <div id="left-column" class="scroll">  
 
-      <h1>CHO HYEONYI</h1>  
+    <div id="left-column" class="scroll">
 
-      <p class="desc">
-        Visual Design Major
-      </p>
+      <h1>CHO<br>HYEONYI</h1>
+
+      <p class="desc">Visual Design Major</p>
 
       <ul>
         <li>My favorite food is Shellfish dishes, Sashimi</li>
-        
+
         <li>
-          My favorite song is 
+          My favorite song is
           <a href="https://youtu.be/4k_HiMxY_gg?si=b0G8AQNT9Xvd2Dv6" target="_blank">
             Hearts2Hearts - Apple Pie
           </a>
         </li>
 
         <li>
-          My favorite website is 
+          My favorite website is
           <a href="https://www.pinterest.com" target="_blank">
             Pinterest
           </a>
@@ -156,11 +303,131 @@
       <pre class="ascii">
 (\_/)
 ( •_•)   🍪   (⌐■_■)
- / >
+/ >
       </pre>
 
+      <div class="label">
+        personal class site / interactive type
+      </div>
+
     </div>
+
+    <div id="right-column">
+      <div class="guide-text">Interactive name field</div>
+      <div class="click-note">move<br>your<br>mouse</div>
+      <div class="floating-name">CHO HYEONYI</div>
+      <div id="name-field"></div>
+
+      <div class="instruction">
+        The letters of my name respond to the cursor. Move your mouse across the right area, or click to rearrange the typography.
+      </div>
+    </div>
+
   </div>
+
+  <script>
+    const field = document.getElementById("name-field");
+    const rightColumn = document.getElementById("right-column");
+
+    const nameText = "CHOHYEONYI";
+    const letters = [];
+    let mouseX = -9999;
+    let mouseY = -9999;
+
+    function createLetters() {
+      field.innerHTML = "";
+      letters.length = 0;
+
+      const rect = rightColumn.getBoundingClientRect();
+      const cols = 5;
+      const rows = 2;
+
+      for (let i = 0; i < nameText.length; i++) {
+        const span = document.createElement("span");
+        span.className = "letter";
+        span.textContent = nameText[i];
+
+        const col = i % cols;
+        const row = Math.floor(i / cols);
+
+        const baseX = rect.width * 0.15 + col * rect.width * 0.15;
+        const baseY = rect.height * 0.32 + row * rect.height * 0.22;
+
+        span.style.left = baseX + "px";
+        span.style.top = baseY + "px";
+
+        field.appendChild(span);
+
+        letters.push({
+          el: span,
+          x: baseX,
+          y: baseY,
+          randomX: 0,
+          randomY: 0,
+          rotate: 0
+        });
+      }
+    }
+
+    function animateLetters() {
+      letters.forEach((letter, index) => {
+        const dx = mouseX - letter.x;
+        const dy = mouseY - letter.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        const force = Math.max(0, 180 - distance) / 180;
+        const angle = Math.atan2(dy, dx);
+
+        const pushX = -Math.cos(angle) * force * 90;
+        const pushY = -Math.sin(angle) * force * 90;
+
+        const wave = Math.sin(Date.now() * 0.002 + index) * 8;
+
+        letter.el.style.transform = `
+          translate(
+            ${pushX + letter.randomX}px,
+            ${pushY + letter.randomY + wave}px
+          )
+          rotate(${letter.rotate + force * 20}deg)
+          scale(${1 + force * 0.45})
+        `;
+      });
+
+      requestAnimationFrame(animateLetters);
+    }
+
+    rightColumn.addEventListener("mousemove", function(event) {
+      const rect = rightColumn.getBoundingClientRect();
+      mouseX = event.clientX - rect.left;
+      mouseY = event.clientY - rect.top;
+    });
+
+    rightColumn.addEventListener("mouseleave", function() {
+      mouseX = -9999;
+      mouseY = -9999;
+    });
+
+    rightColumn.addEventListener("click", function() {
+      letters.forEach((letter) => {
+        letter.randomX = (Math.random() - 0.5) * 180;
+        letter.randomY = (Math.random() - 0.5) * 180;
+        letter.rotate = (Math.random() - 0.5) * 50;
+      });
+
+      setTimeout(() => {
+        letters.forEach((letter) => {
+          letter.randomX = 0;
+          letter.randomY = 0;
+          letter.rotate = 0;
+        });
+      }, 900);
+    });
+
+    window.addEventListener("resize", createLetters);
+
+    createLetters();
+    animateLetters();
+  </script>
 
 </body>
 </html>
