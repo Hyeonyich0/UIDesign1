@@ -1,0 +1,291 @@
+body {
+  background: #d8ccff;
+  margin: 0;
+}
+
+#align {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+#stage {
+  width: 900px;
+  height: 556px;
+  margin: auto;
+  background: white;
+  position: relative;
+  overflow: hidden;
+}
+
+/* background */
+
+#back-wall {
+  width: 900px;
+  height: 300px;
+  background: #f7f7f7;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#green-cloth {
+  width: 720px;
+  height: 110px;
+  background: #8dff00;
+  position: absolute;
+  top: 295px;
+  left: 110px;
+  clip-path: polygon(10% 0, 88% 0, 100% 100%, 0 100%);
+}
+
+#yellow-table {
+  width: 900px;
+  height: 42px;
+  background: #f3bd00;
+  position: absolute;
+  top: 395px;
+  left: 0;
+  z-index: 20;
+}
+
+#table-front {
+  width: 900px;
+  height: 58px;
+  background: #ffffff;
+  position: absolute;
+  top: 437px;
+  left: 0;
+  z-index: 10;
+}
+
+#floor {
+  width: 900px;
+  height: 61px;
+  background: #8b8788;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+/* table legs */
+
+#table-leg-left {
+  width: 28px;
+  height: 120px;
+  background: #5a543f;
+  position: absolute;
+  top: 437px;
+  left: 120px;
+}
+
+#table-leg-right {
+  width: 24px;
+  height: 120px;
+  background: #5a543f;
+  position: absolute;
+  top: 437px;
+  right: 75px;
+}
+
+#table-leg-side {
+  width: 24px;
+  height: 120px;
+  background: #5a543f;
+  position: absolute;
+  top: 437px;
+  right: 22px;
+}
+
+#table-leg-side::before {
+  content: "";
+  width: 24px;
+  height: 90px;
+  background: #5a543f;
+  position: absolute;
+  top: 38px;
+  left: -22px;
+  transform: rotate(-40deg);
+  transform-origin: top right;
+}
+
+/* triangle object */
+
+#triangle {
+  width: 0;
+  height: 0;
+  border-left: 55px solid transparent;
+  border-right: 55px solid transparent;
+  border-bottom: 150px solid #ff5a4f;
+  position: absolute;
+  left: 65px;
+  top: 245px;
+  z-index: 5;
+}
+
+/* blue book */
+
+#book {
+  width: 120px;
+  height: 26px;
+  background: #5076d9;
+  position: absolute;
+  left: 150px;
+  top: 332px;
+  transform: rotate(-10deg);
+  z-index: 6;
+}
+
+/* bowl */
+
+#white-bowl {
+  width: 175px;
+  height: 175px;
+  background: linear-gradient(#ffffff, #ececec);
+  border-radius: 50%;
+  position: absolute;
+  top: 210px;
+  left: 255px;
+  z-index: 7;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* fruits */
+
+#orange {
+  width: 72px;
+  height: 72px;
+  background: #f3a300;
+  border-radius: 50%;
+  position: absolute;
+  top: 315px;
+  left: 465px;
+  z-index: 8;
+}
+
+#lemon {
+  width: 60px;
+  height: 82px;
+  background: #ffd84d;
+  border-radius: 50%;
+  position: absolute;
+  top: 300px;
+  left: 545px;
+  transform: rotate(22deg);
+  z-index: 8;
+}
+
+/* vase */
+
+#vase {
+  width: 110px;
+  height: 205px;
+  background: rgba(226, 240, 235, 0.62);
+  position: absolute;
+  top: 182px;
+  left: 635px;
+  clip-path: polygon(18% 0, 82% 0, 100% 100%, 0 100%);
+  z-index: 9;
+}
+
+#vase-neck {
+  width: 96px;
+  height: 52px;
+  background: rgba(236, 246, 240, 0.62);
+  position: absolute;
+  top: 335px;
+  left: 642px;
+  border-radius: 16px;
+  z-index: 10;
+}
+
+/* stems */
+
+.stem {
+  width: 8px;
+  background: #2f8d16;
+  position: absolute;
+  transform-origin: bottom center;
+  z-index: 4;
+}
+
+.stem1 {
+  height: 210px;
+  left: 675px;
+  top: 120px;
+  transform: rotate(-28deg);
+}
+
+.stem2 {
+  height: 195px;
+  left: 685px;
+  top: 115px;
+  transform: rotate(-10deg);
+}
+
+.stem3 {
+  height: 205px;
+  left: 695px;
+  top: 112px;
+  transform: rotate(10deg);
+}
+
+.stem4 {
+  height: 225px;
+  left: 705px;
+  top: 105px;
+  transform: rotate(28deg);
+}
+
+/* flowers */
+
+.flower {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  position: absolute;
+  background: var(--c);
+  z-index: 6;
+}
+
+.flower::after {
+  content: "";
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 24px;
+  background: var(--c2);
+}
+
+/* different flower colors + positions */
+
+.flower1 {
+  --c: #ff4da1;
+  --c2: #d92d84;
+  top: 70px;
+  left: 560px;
+}
+
+.flower2 {
+  --c: #8c5bff;
+  --c2: #6b3fd9;
+  top: 92px;
+  left: 618px;
+}
+
+.flower3 {
+  --c: #ff914d;
+  --c2: #e96c1d;
+  top: 84px;
+  left: 670px;
+}
+
+.flower4 {
+  --c: #57a8ff;
+  --c2: #2d7fda;
+  top: 58px;
+  left: 720px;
+}
