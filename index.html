@@ -1,445 +1,550 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CHO HYEONYI</title>
-
   <style>
-    * {
-      box-sizing: border-box;
+    * { box-sizing: border-box; }
+
+    :root {
+      --bg: #f6f5f3;
+      --bg2: #eeeeec;
+      --paper: rgba(255,255,255,0.62);
+      --paper-solid: #fbfaf8;
+      --ink: #202020;
+      --muted: #6f6f6d;
+      --line: rgba(0,0,0,0.075);
+      --shadow: 0 22px 70px rgba(0,0,0,0.075);
+      --radius: 18px;
     }
+
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
-      background: #f7f3ea;
-      color: #111;
+      background: var(--bg);
+      color: var(--ink);
       font-family: Helvetica, Arial, sans-serif;
-      overflow: hidden;
+      overflow-x: hidden;
     }
 
-    #grid {
-      display: grid;
-      grid-template-columns: 42vw 58vw;
-      width: 100vw;
-      height: 100vh;
+    a { color: inherit; }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 6.8vw;
+      background: linear-gradient(to bottom, rgba(246,245,243,0.9), rgba(246,245,243,0.45), rgba(246,245,243,0));
+      backdrop-filter: blur(12px);
     }
 
-    #left-column {
-      padding: 38px;
-      border-right: 2px solid #111;
-      height: 100vh;
-      overflow-y: scroll;
-      background: #f7f3ea;
+    .logo {
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: clamp(24px, 5vw, 58px);
+      font-size: 14px;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #292929;
+      opacity: 0.85;
+    }
+
+    .nav-links a:hover { opacity: 1; text-decoration: underline; }
+
+    .hero {
       position: relative;
-      z-index: 2;
+      min-height: 100vh;
+      padding: 18vh 7vw 8vh;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      align-items: center;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 84% 26%, rgba(255,255,255,0.85), transparent 30%),
+        linear-gradient(120deg, #fbfaf8 0%, #f4f3f1 48%, #ecebea 100%);
+    }
+
+    .hero-copy { position: relative; z-index: 3; }
+
+    .eyebrow {
+      margin: 0 0 28px;
+      font-size: 16px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #333;
+      font-weight: 400;
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(72px, 9vw, 150px);
-      line-height: 0.78;
-      letter-spacing: -0.09em;
-      font-weight: 900;
+      font-size: clamp(76px, 10.5vw, 150px);
+      line-height: 0.86;
+      letter-spacing: -0.082em;
+      font-weight: 800;
+    }
+
+    .major {
+      width: fit-content;
+      margin-top: 30px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(0,0,0,0.12);
+      color: #777;
+      font-size: 17px;
+      letter-spacing: -0.03em;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      min-width: 154px;
+      gap: 26px;
+      margin-top: 34px;
+      padding: 14px 22px 14px 28px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .orb-stage {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      min-height: 560px;
+      pointer-events: auto;
+    }
+
+    .blur-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(18px);
+      opacity: 0.74;
+      transition: transform 0.18s ease-out;
+      will-change: transform;
+      background: radial-gradient(circle at 34% 30%, rgba(255,255,255,0.92), rgba(202,201,198,0.52) 42%, rgba(120,120,116,0.28) 76%, rgba(255,255,255,0.2));
+      box-shadow: inset 28px 28px 70px rgba(255,255,255,0.7), inset -32px -46px 88px rgba(0,0,0,0.11), 0 40px 120px rgba(0,0,0,0.08);
+    }
+
+    .orb-large {
+      width: min(52vw, 560px);
+      height: min(52vw, 560px);
+      right: 4vw;
+      top: 54px;
+      filter: blur(22px);
+    }
+
+    .orb-small-a {
+      width: 126px;
+      height: 126px;
+      left: 10vw;
+      top: 72px;
+      filter: blur(16px);
+    }
+
+    .orb-small-b {
+      width: 96px;
+      height: 96px;
+      right: 0;
+      bottom: 122px;
+      filter: blur(15px);
+    }
+
+    .orb-hint {
+      position: absolute;
+      right: 7vw;
+      bottom: 8vh;
+      z-index: 4;
+      color: rgba(0,0,0,0.42);
+      font-size: 12px;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
     }
 
-    .desc {
-      margin: 32px 0 48px 0;
-      padding: 14px 0;
-      border-top: 2px solid #111;
-      border-bottom: 2px solid #111;
-      font-size: 22px;
-      font-style: italic;
-      letter-spacing: -0.04em;
+    .section {
+      padding: 90px 7vw;
+      background: linear-gradient(180deg, #f3f2f0, #fbfaf8);
     }
 
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      border-top: 2px solid #111;
-    }
+    .section.alt { background: #fbfaf8; }
 
-    li {
-      padding: 20px 0;
-      border-bottom: 2px solid #111;
-      font-size: 28px;
-      line-height: 1.05;
-      letter-spacing: -0.055em;
-      transition: all 0.25s ease;
-    }
-
-    li:hover {
-      padding-left: 18px;
-      background: #111;
-      color: #f7f3ea;
-    }
-
-    li::before {
-      content: "→ ";
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-      border-bottom: 2px solid currentColor;
-    }
-
-    .ascii {
-      margin-top: 70px;
-      font-family: "Courier New", monospace;
-      font-size: 20px;
-      line-height: 1.15;
-      white-space: pre;
-      letter-spacing: 0;
-      transform: rotate(-3deg);
-      width: fit-content;
-      padding: 22px 30px;
-      border: 2px solid #111;
-      background: #fffdf7;
-      box-shadow: 10px 10px 0 #111;
+    .split {
+      display: grid;
+      grid-template-columns: 0.65fr 1.35fr;
+      gap: 8vw;
+      align-items: start;
     }
 
     .label {
-      position: absolute;
-      left: 38px;
-      bottom: 32px;
+      margin: 0 0 24px;
       font-size: 13px;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
+      color: #303030;
     }
 
-    #right-column {
-      height: 100vh;
-      position: relative;
+    h2 {
+      margin: 0;
+      font-size: clamp(38px, 4.4vw, 66px);
+      line-height: 0.94;
+      letter-spacing: -0.07em;
+      font-weight: 760;
+    }
+
+    .note {
+      max-width: 240px;
+      margin: 28px 0 0;
+      color: #666;
+      font-size: 17px;
+      line-height: 1.35;
+      letter-spacing: -0.035em;
+    }
+
+    .list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .item {
+      min-height: 76px;
+      display: grid;
+      grid-template-columns: 54px 1fr 46px;
+      gap: 18px;
+      align-items: center;
+      padding: 14px 18px;
+      border-radius: 12px;
+      background: var(--paper);
+      border: 1px solid rgba(255,255,255,0.7);
+      box-shadow: 0 8px 38px rgba(0,0,0,0.035);
+      text-decoration: none;
+      backdrop-filter: blur(16px);
+      transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .item:hover {
+      transform: translateX(8px);
+      background: rgba(255,255,255,0.84);
+      box-shadow: 0 14px 42px rgba(0,0,0,0.07);
+    }
+
+    .icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(230,230,228,0.72);
+      font-size: 22px;
+    }
+
+    .item-main {
+      color: #5a5a58;
+      font-size: 16px;
+      letter-spacing: -0.03em;
+    }
+
+    .item-main strong {
+      color: #202020;
+      font-weight: 500;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .arrow {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      justify-self: end;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.64);
+      border: 1px solid var(--line);
+      box-shadow: 0 5px 18px rgba(0,0,0,0.045);
+      font-size: 20px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 26px;
+    }
+
+    .project-card {
       overflow: hidden;
-      background: #f7f3ea;
-      cursor: crosshair;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.6);
+      border: 1px solid var(--line);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.055);
+      text-decoration: none;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
     }
 
-    #right-column::before {
+    .project-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.09);
+    }
+
+    .project-visual {
+      min-height: 310px;
+      position: relative;
+      background: linear-gradient(145deg, #d9d6cf, #f5f4f1);
+      overflow: hidden;
+    }
+
+    .clock-face {
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: #efeee9;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.07), 0 18px 42px rgba(0,0,0,0.1);
+    }
+
+    .clock-face::before, .clock-face::after {
       content: "";
       position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(to right, rgba(0,0,0,0.08) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(0,0,0,0.08) 1px, transparent 1px);
-      background-size: 48px 48px;
-      pointer-events: none;
+      left: 50%;
+      top: 50%;
+      height: 2px;
+      background: #191919;
+      transform-origin: left center;
     }
 
-    .guide-text {
-      position: absolute;
-      top: 28px;
-      left: 30px;
-      font-size: 13px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      z-index: 3;
+    .clock-face::before { width: 82px; transform: rotate(220deg); }
+    .clock-face::after { width: 70px; transform: rotate(318deg); }
+
+    .packing-visual {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      padding: 42px;
+      background: #dfd8cd;
     }
 
-    .instruction {
-      position: absolute;
-      right: 30px;
-      bottom: 28px;
-      width: 260px;
-      font-size: 16px;
-      line-height: 1.15;
-      letter-spacing: -0.04em;
-      border-top: 2px solid #111;
-      padding-top: 12px;
-      z-index: 3;
+    .pack-item {
+      border-radius: 16px;
+      background: linear-gradient(145deg, #fbf8f1, #cfc6b8);
+      box-shadow: 0 12px 26px rgba(0,0,0,0.1);
     }
 
-    #name-field {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
+    .pack-item.big { grid-column: span 2; grid-row: span 2; }
+
+    .project-info {
+      display: grid;
+      grid-template-columns: 1fr 42px;
+      gap: 18px;
+      align-items: end;
+      padding: 26px 28px 28px;
     }
 
-    .letter {
-      position: absolute;
-      font-size: clamp(42px, 7vw, 120px);
-      font-weight: 900;
-      letter-spacing: -0.08em;
-      line-height: 0.8;
-      user-select: none;
-      transition:
-        transform 0.2s ease,
-        opacity 0.2s ease,
-        font-style 0.2s ease;
-      will-change: transform;
-      mix-blend-mode: multiply;
+    .project-info h3 {
+      margin: 0 0 10px;
+      font-size: 24px;
+      letter-spacing: -0.05em;
     }
 
-    .letter:hover {
-      font-style: italic;
-      opacity: 0.45;
+    .project-info p {
+      margin: 0;
+      color: #666;
+      font-size: 15px;
+      line-height: 1.35;
+      letter-spacing: -0.025em;
     }
 
-    .floating-name {
-      position: absolute;
-      left: 30px;
-      bottom: 120px;
-      font-size: 10vw;
-      line-height: 0.8;
-      font-weight: 900;
-      letter-spacing: -0.1em;
-      text-transform: uppercase;
-      color: transparent;
-      -webkit-text-stroke: 2px #111;
-      opacity: 0.18;
-      pointer-events: none;
-      white-space: nowrap;
-      animation: slowMove 12s ease-in-out infinite alternate;
-    }
-
-    @keyframes slowMove {
-      from {
-        transform: translateX(-40px) skewX(-8deg);
-      }
-      to {
-        transform: translateX(60px) skewX(8deg);
-      }
-    }
-
-    .click-note {
-      position: absolute;
-      right: 30px;
-      top: 28px;
-      width: 180px;
-      height: 180px;
-      border: 2px solid #111;
-      border-radius: 50%;
+    footer {
+      padding: 52px 7vw 70px;
+      background: #fbfaf8;
+      color: #686866;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
+      justify-content: space-between;
+      gap: 28px;
       font-size: 14px;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-      animation: rotateNote 9s linear infinite;
-      z-index: 3;
-      background: rgba(247,243,234,0.75);
+      border-top: 1px solid var(--line);
     }
 
-    @keyframes rotateNote {
-      from {
-        transform: rotate(0deg);
-      }
-      to {
-        transform: rotate(360deg);
-      }
-    }
+    footer strong { color: #202020; }
 
-    @media (max-width: 768px) {
-      body {
-        overflow: auto;
-      }
-
-      #grid {
-        display: block;
-        height: auto;
-      }
-
-      #left-column {
-        height: auto;
-        border-right: none;
-        border-bottom: 2px solid #111;
-      }
-
-      #right-column {
-        height: 80vh;
-      }
-
-      h1 {
-        font-size: 78px;
-      }
-
-      li {
-        font-size: 24px;
-      }
-
-      .label {
-        position: static;
-        margin-top: 40px;
-      }
-
-      .instruction {
-        width: 220px;
-      }
+    @media (max-width: 900px) {
+      .nav { position: sticky; padding: 22px 6vw; }
+      .nav-links { gap: 18px; font-size: 13px; }
+      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 120px; }
+      .orb-stage { min-height: 430px; }
+      .orb-large { width: 72vw; height: 72vw; right: 6vw; top: 34px; }
+      .orb-small-a { left: 8vw; top: 10px; }
+      .split { grid-template-columns: 1fr; gap: 42px; }
+      .projects-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; }
     }
   </style>
 </head>
-
 <body>
+  <nav class="nav">
+    <a class="logo" href="#top">CHO HYEONYI</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#favorites">Favorites</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
 
-  <div id="grid">
-
-    <div id="left-column" class="scroll">
-
-      <h1>CHO<br>HYEONYI</h1>
-
-      <p class="desc">Visual Design Major</p>
-
-     <ul>
-  <li>My favorite food is Shellfish dishes, Sashimi</li>
-
-  <li>
-    My favorite song is
-    <a href="https://youtu.be/4k_HiMxY_gg?si=b0G8AQNT9Xvd2Dv6" target="_blank">
-      Hearts2Hearts - Apple Pie
-    </a>
-  </li>
-
-  <li>
-    My favorite website is
-    <a href="https://www.pinterest.com" target="_blank">
-      Pinterest
-    </a>
-  </li>
-
-  <li>
-    <a href="codingfromlife.html">
-      Coding from Life
-    </a>
-  </li>
-
-  <li>
-    <a href="exterior-hyeonyi.html">
-      ASCII
-    </a>
-  </li>
-</ul>
-
-      <pre class="ascii">
-(\_/)
-( •_•)   🍪   (⌐■_■)
-/ >
-      </pre>
-
-      <div class="label">
-        personal class site / interactive type
+  <main id="top">
+    <section class="hero" id="about">
+      <div class="hero-copy">
+        <p class="eyebrow">Hello,</p>
+        <h1>CHO<br>HYEONYI</h1>
+        <p class="major">Visual Design Major</p>
+        <a class="button" href="#favorites">About me <span>→</span></a>
       </div>
 
-    </div>
-
-    <div id="right-column">
-      <div class="guide-text">Interactive name field</div>
-      <div class="click-note">move<br>your<br>mouse</div>
-      <div class="floating-name">CHO HYEONYI</div>
-      <div id="name-field"></div>
-
-      <div class="instruction">
-        The letters of my name respond to the cursor. Move your mouse across the right area, or click to rearrange the typography.
+      <div class="orb-stage" id="orbStage" aria-label="interactive blurred monochrome circles">
+        <span class="blur-orb orb-large" data-speed="0.035"></span>
+        <span class="blur-orb orb-small-a" data-speed="0.07"></span>
+        <span class="blur-orb orb-small-b" data-speed="-0.055"></span>
+        <div class="orb-hint">Move cursor</div>
       </div>
-    </div>
+    </section>
 
-  </div>
+    <section class="section" id="favorites">
+      <div class="split">
+        <div>
+          <p class="label">Favorites</p>
+          <h2>Things<br>I love.</h2>
+          <p class="note">Some of my favorite things that inspire me everyday.</p>
+        </div>
+
+        <div class="list">
+          <div class="item">
+            <span class="icon">♨</span>
+            <span class="item-main">My favorite food is Shellfish dishes, Sashimi</span>
+            <span class="arrow">→</span>
+          </div>
+
+          <a class="item" href="https://youtu.be/4k_HiMxY_gg?si=b0G8AQNT9Xvd2Dv6" target="_blank">
+            <span class="icon">♫</span>
+            <span class="item-main">My favorite song is <strong>Hearts2Hearts - Apple Pie</strong></span>
+            <span class="arrow">→</span>
+          </a>
+
+          <a class="item" href="https://www.pinterest.com" target="_blank">
+            <span class="icon">P</span>
+            <span class="item-main">My favorite website is <strong>Pinterest</strong></span>
+            <span class="arrow">→</span>
+          </a>
+
+          <a class="item" href="codingfromlife.html">
+            <span class="icon">&lt;/&gt;</span>
+            <span class="item-main"><strong>Coding From Life</strong></span>
+            <span class="arrow">→</span>
+          </a>
+
+          <a class="item" href="exterior-hyeonyi.html">
+            <span class="icon">A</span>
+            <span class="item-main"><strong>ASCII Exterior</strong></span>
+            <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="projects">
+      <div class="split">
+        <div>
+          <p class="label">Projects</p>
+          <h2>Designing<br>with purpose.</h2>
+          <p class="note">Selected projects that reflect my interests and explorations.</p>
+          <a class="button" href="#top">View all works <span>→</span></a>
+        </div>
+
+        <div class="projects-grid">
+          <a class="project-card" href="file:///Users/chohyeonyi/Documents/서울대/3학년%201학기/UI%20Design%20Programing/labor-clock.html">
+            <div class="project-visual">
+              <div class="clock-face"></div>
+            </div>
+            <div class="project-info">
+              <div>
+                <h3>Clock</h3>
+                <p>A minimal clock interface focused on time and clarity.</p>
+              </div>
+              <span class="arrow">→</span>
+            </div>
+          </a>
+
+          <a class="project-card" href="file:///Users/chohyeonyi/Documents/서울대/3학년%201학기/UI%20Design%20Programing/기말%20웹/travel_packing_guide_icons_replaced.html">
+            <div class="project-visual packing-visual">
+              <span class="pack-item big"></span>
+              <span class="pack-item"></span>
+              <span class="pack-item"></span>
+              <span class="pack-item"></span>
+              <span class="pack-item"></span>
+              <span class="pack-item"></span>
+              <span class="pack-item"></span>
+              <span class="pack-item"></span>
+              <span class="pack-item"></span>
+              <span class="pack-item"></span>
+            </div>
+            <div class="project-info">
+              <div>
+                <h3>Pack Your Essentials</h3>
+                <p>A travel packing guide to help you pack smart and stress-free.</p>
+              </div>
+              <span class="arrow">→</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div><strong>CHO HYEONYI</strong><br>Visual Design Major</div>
+    <div>Personal class site / modern scrolling homepage</div>
+  </footer>
 
   <script>
-    const field = document.getElementById("name-field");
-    const rightColumn = document.getElementById("right-column");
+    const stage = document.getElementById('orbStage');
+    const orbs = document.querySelectorAll('.blur-orb');
 
-    const nameText = "CHOHYEONYI";
-    const letters = [];
-    let mouseX = -9999;
-    let mouseY = -9999;
+    function moveOrbs(event) {
+      const rect = stage.getBoundingClientRect();
+      const x = event.clientX - rect.left - rect.width / 2;
+      const y = event.clientY - rect.top - rect.height / 2;
 
-    function createLetters() {
-      field.innerHTML = "";
-      letters.length = 0;
-
-      const rect = rightColumn.getBoundingClientRect();
-      const cols = 5;
-      const rows = 2;
-
-      for (let i = 0; i < nameText.length; i++) {
-        const span = document.createElement("span");
-        span.className = "letter";
-        span.textContent = nameText[i];
-
-        const col = i % cols;
-        const row = Math.floor(i / cols);
-
-        const baseX = rect.width * 0.15 + col * rect.width * 0.15;
-        const baseY = rect.height * 0.32 + row * rect.height * 0.22;
-
-        span.style.left = baseX + "px";
-        span.style.top = baseY + "px";
-
-        field.appendChild(span);
-
-        letters.push({
-          el: span,
-          x: baseX,
-          y: baseY,
-          randomX: 0,
-          randomY: 0,
-          rotate: 0
-        });
-      }
+      orbs.forEach((orb) => {
+        const speed = Number(orb.dataset.speed || 0.04);
+        orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+      });
     }
 
-    function animateLetters() {
-      letters.forEach((letter, index) => {
-        const dx = mouseX - letter.x;
-        const dy = mouseY - letter.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        const force = Math.max(0, 180 - distance) / 180;
-        const angle = Math.atan2(dy, dx);
-
-        const pushX = -Math.cos(angle) * force * 90;
-        const pushY = -Math.sin(angle) * force * 90;
-
-        const wave = Math.sin(Date.now() * 0.002 + index) * 8;
-
-        letter.el.style.transform = `
-          translate(
-            ${pushX + letter.randomX}px,
-            ${pushY + letter.randomY + wave}px
-          )
-          rotate(${letter.rotate + force * 20}deg)
-          scale(${1 + force * 0.45})
-        `;
+    function resetOrbs() {
+      orbs.forEach((orb) => {
+        orb.style.transform = 'translate(0, 0)';
       });
-
-      requestAnimationFrame(animateLetters);
     }
 
-    rightColumn.addEventListener("mousemove", function(event) {
-      const rect = rightColumn.getBoundingClientRect();
-      mouseX = event.clientX - rect.left;
-      mouseY = event.clientY - rect.top;
-    });
-
-    rightColumn.addEventListener("mouseleave", function() {
-      mouseX = -9999;
-      mouseY = -9999;
-    });
-
-    rightColumn.addEventListener("click", function() {
-      letters.forEach((letter) => {
-        letter.randomX = (Math.random() - 0.5) * 180;
-        letter.randomY = (Math.random() - 0.5) * 180;
-        letter.rotate = (Math.random() - 0.5) * 50;
-      });
-
-      setTimeout(() => {
-        letters.forEach((letter) => {
-          letter.randomX = 0;
-          letter.randomY = 0;
-          letter.rotate = 0;
-        });
-      }, 900);
-    });
-
-    window.addEventListener("resize", createLetters);
-
-    createLetters();
-    animateLetters();
+    stage.addEventListener('mousemove', moveOrbs);
+    stage.addEventListener('mouseleave', resetOrbs);
   </script>
-
 </body>
 </html>
